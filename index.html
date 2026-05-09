@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudShield AI</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #080c14;
+            font-family: 'Rajdhani', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+            overflow: hidden;
+        }
+
+        /* Animated grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 0;
+        }
+
+        .glow-orb {
+            position: fixed;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(0,255,136,0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -100px; left: -100px;
+            z-index: 0;
+            animation: drift 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes drift {
+            from { transform: translate(0,0); }
+            to { transform: translate(100px, 80px); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 420px;
+            padding: 20px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .logo-icon {
+            font-size: 2.8rem;
+            display: block;
+            margin-bottom: 8px;
+            filter: drop-shadow(0 0 12px rgba(0,255,136,0.5));
+        }
+
+        .logo-text {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .logo-text span { color: #00ff88; }
+
+        .logo-sub {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem;
+            color: #00ff88;
+            letter-spacing: 4px;
+            margin-top: 4px;
+            opacity: 0.7;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(0,255,136,0.15);
+            border-radius: 16px;
+            padding: 32px;
+            backdrop-filter: blur(10px);
+        }
+
+        .tabs {
+            display: flex;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 4px;
+            margin-bottom: 28px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            border-radius: 6px;
+            background: transparent;
+            color: #666;
+            transition: all 0.2s;
+        }
+
+        .tab.active {
+            background: #00ff88;
+            color: #080c14;
+        }
+
+        .form-group { margin-bottom: 20px; }
+
+        label {
+            display: block;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #00ff88;
+            margin-bottom: 8px;
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(0,255,136,0.2);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            font-family: 'Rajdhani', sans-serif;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+
+        input:focus { border-color: #00ff88; }
+        input::placeholder { color: #444; }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: #00ff88;
+            color: #080c14;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: 'Rajdhani', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 8px;
+        }
+
+        .btn:hover { background: #00cc6e; transform: translateY(-1px); }
+        .btn:active { transform: translateY(0); }
+        .btn:disabled { background: #333; color: #666; cursor: not-allowed; transform: none; }
+
+        .message {
+            margin-top: 16px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            text-align: center;
+            display: none;
+        }
+
+        .message.error {
+            background: rgba(255,60,60,0.1);
+            border: 1px solid rgba(255,60,60,0.3);
+            color: #ff6b6b;
+            display: block;
+        }
+
+        .message.success {
+            background: rgba(0,255,136,0.1);
+            border: 1px solid rgba(0,255,136,0.3);
+            color: #00ff88;
+            display: block;
+        }
+
+        .loading-text::after {
+            content: '...';
+            animation: dots 1s steps(3, end) infinite;
+        }
+
+        @keyframes dots {
+            0%, 33% { content: '.'; }
+            66% { content: '..'; }
+            100% { content: '...'; }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-orb"></div>
+    <div class="container">
+        <div class="logo">
+            <span class="logo-icon">🛡️</span>
+            <div class="logo-text">Cloud<span>Shield</span></div>
+            <div class="logo-sub">AI Security Platform</div>
+        </div>
+
+        <div class="card">
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('login')">Login</button>
+                <button class="tab" onclick="switchTab('signup')">Sign Up</button>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <div id="loginForm">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="you@example.com" />
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" />
+                </div>
+                <button class="btn" id="loginBtn" onclick="doLogin()">Login</button>
+                <div id="loginMsg" class="message"></div>
+            </div>
+
+            <!-- SIGNUP FORM -->
+            <div id="signupForm" style="display:none;">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="signupEmail" placeholder="you@example.com" />
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="signupPassword" placeholder="Min 8 chars, upper+lower+number" />
+                </div>
+                <button class="btn" id="signupBtn" onclick="doSignup()">Create Account</button>
+                <div id="signupMsg" class="message"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API = 'https://vz3hnf6n5f.execute-api.us-east-1.amazonaws.com';
+        
+        async function callAPI(endpoint, data) {
+            const response = await fetch(`${API}${endpoint}`, {
+                method: 'POST',
+                mode: 'cors', headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            return response;
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach((t, i) => {
+                t.classList.toggle('active', (tab === 'login' && i === 0) || (tab === 'signup' && i === 1));
+            });
+            document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
+            document.getElementById('signupForm').style.display = tab === 'signup' ? 'block' : 'none';
+        }
+
+        function showMsg(id, text, type) {
+            const el = document.getElementById(id);
+            el.textContent = text;
+            el.className = 'message ' + type;
+        }
+
+        async function doLogin() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const btn = document.getElementById('loginBtn');
+
+            if (!email || !password) {
+                showMsg('loginMsg', 'Please enter email and password.', 'error');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading-text">Authenticating</span>';
+
+            try {
+                const res = await callAPI('/login', { email, password });
+                const data = await res.json();
+
+                if (res.ok) {
+                    localStorage.setItem('cloudshield_token', data.token);
+                    localStorage.setItem('cloudshield_user', email);
+                    showMsg('loginMsg', 'Login successful! Redirecting...', 'success');
+                    setTimeout(() => window.location.href = 'dashboard.html', 1000);
+                } else {
+                    showMsg('loginMsg', data.message || 'Login failed.', 'error');
+                    btn.disabled = false;
+                    btn.textContent = 'Login';
+                }
+            } catch (e) {
+                showMsg('loginMsg', 'Error: ' + e.message, 'error');
+                btn.disabled = false;
+                btn.textContent = 'Login';
+            }
+        }
+
+        async function doSignup() {
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value;
+            const btn = document.getElementById('signupBtn');
+
+            if (!email || !password) {
+                showMsg('signupMsg', 'Please enter email and password.', 'error');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading-text">Creating Account</span>';
+
+            try {
+                const res = await callAPI('/signup', { email, password });
+                const data = await res.json();
+
+                if (res.ok) {
+                    showMsg('signupMsg', 'Account created! Switching to login...', 'success');
+                    setTimeout(() => {
+                        switchTab('login');
+                        document.getElementById('loginEmail').value = email;
+                    }, 1500);
+                } else {
+                    showMsg('signupMsg', data.message || 'Signup failed.', 'error');
+                }
+            } catch (e) {
+                showMsg('signupMsg', 'Error: ' + e.message, 'error');
+            }
+
+            btn.disabled = false;
+            btn.textContent = 'Create Account';
+        }
+
+        // Allow Enter key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                if (document.getElementById('loginForm').style.display !== 'none') doLogin();
+                else doSignup();
+            }
+        });
+    </script>
+</body>
+</html>
