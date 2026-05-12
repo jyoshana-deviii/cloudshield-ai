@@ -36,3 +36,42 @@ Team 56
 
 ## Live Demo
 https://d3s3nxq8afdbi9.cloudfront.net
+
+## Problem Statement
+AWS account owners have no real-time visibility when someone logs into their cloud account. Traditional security alerts treat every login the same, flooding users with irrelevant notifications or missing actual threats entirely. CloudShield AI solves this by automatically detecting every login, using AI to analyze the risk, and sending instant verification alerts.
+
+## How It Works
+1. Someone logs into AWS Console
+2. CloudTrail records the login event automatically
+3. EventBridge detects the event and triggers Lambda function
+4. Lambda fetches the IP geolocation using ip-api.com
+5. Amazon Bedrock Claude Haiku 4.5 analyzes the login and decides SAFE or SUSPICIOUS
+6. SNS sends an instant email alert with YES and NO verification links
+7. User clicks YES to confirm or NO to trigger automatic IAM user block
+8. All logs are saved to DynamoDB and displayed on the live dashboard
+
+## Security Flow
+- SAFE login: India location, known IAM user, private IP
+- SUSPICIOUS login: Foreign country IP, root account login, unknown location
+- On NO click: IAM user is automatically blocked using PasswordResetRequired and access key deactivation
+
+## Future Enhancements
+- Multi-tenant SaaS platform where anyone can signup and monitor their own AWS account
+- SMS alerts via AWS SNS
+- Auto-block after 5 failed login attempts
+- Timezone-based anomaly detection
+- Mobile application
+- AWS GuardDuty deep integration
+- WhatsApp notifications
+
+## Local Setup
+This project is fully serverless on AWS. To deploy on your own AWS account, configure the following services as described in the architecture and upload the Lambda functions from this repository.
+
+## Repository Structure
+- CloudShieldLoginMonitor.py - Main Lambda for login detection and AI analysis
+- CloudShieldVerifyResponse.py - Lambda for YES/NO email verification and auto-block
+- CloudShieldGetLogs.py - Lambda for fetching logs to dashboard
+- CloudShieldLogin.py - Lambda for website Cognito login
+- CloudShieldSignup.py - Lambda for website Cognito signup
+- index.html - Website login page
+- dashboard.html - Security dashboard with live login statistics
