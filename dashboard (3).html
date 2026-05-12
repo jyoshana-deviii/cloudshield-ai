@@ -33,20 +33,10 @@
             backdrop-filter: blur(10px);
         }
 
-        .brand {
-            font-size: 1.3rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
+        .brand { font-size: 1.3rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; }
         .brand span { color: #00ff88; }
 
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
+        .nav-right { display: flex; align-items: center; gap: 16px; }
 
         .user-badge {
             font-family: 'Share Tech Mono', monospace;
@@ -71,7 +61,6 @@
             letter-spacing: 1px;
             transition: all 0.2s;
         }
-
         .logout-btn:hover { background: rgba(255,80,80,0.1); }
 
         .main { position: relative; z-index: 1; padding: 24px 30px; }
@@ -85,43 +74,63 @@
             margin-bottom: 24px;
             border: 1px solid;
         }
-
-        .banner.safe {
-            background: rgba(0,255,136,0.05);
-            border-color: rgba(0,255,136,0.2);
-        }
-
-        .banner.danger {
-            background: rgba(255,60,60,0.05);
-            border-color: rgba(255,60,60,0.2);
-        }
-
+        .banner.safe { background: rgba(0,255,136,0.05); border-color: rgba(0,255,136,0.2); }
+        .banner.danger { background: rgba(255,60,60,0.05); border-color: rgba(255,60,60,0.2); }
         .banner-icon { font-size: 2rem; }
-
-        .banner-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
+        .banner-title { font-size: 1.3rem; font-weight: 700; letter-spacing: 1px; }
         .banner.safe .banner-title { color: #00ff88; }
         .banner.danger .banner-title { color: #ff6b6b; }
-
-        .banner-subtitle {
-            font-size: 0.85rem;
-            margin-top: 4px;
-            font-family: 'Share Tech Mono', monospace;
-        }
-
+        .banner-subtitle { font-size: 0.85rem; margin-top: 4px; font-family: 'Share Tech Mono', monospace; }
         .banner.safe .banner-subtitle { color: rgba(0,255,136,0.6); }
         .banner.danger .banner-subtitle { color: rgba(255,107,107,0.6); }
+
+        /* Stats Cards */
+        .stats {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            flex: 1;
+            min-width: 140px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(0,255,136,0.1);
+            border-radius: 12px;
+            padding: 22px 18px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .stat-card:hover { border-color: rgba(0,255,136,0.4); background: rgba(0,255,136,0.05); transform: translateY(-3px); }
+        .stat-card.active { border-color: rgba(0,255,136,0.5); background: rgba(0,255,136,0.07); }
+        .stat-card.danger-card:hover { border-color: rgba(255,60,60,0.4); background: rgba(255,60,60,0.05); }
+        .stat-card.danger-card.active { border-color: rgba(255,60,60,0.5); background: rgba(255,60,60,0.07); }
+        .stat-card.warning-card:hover { border-color: rgba(255,165,0,0.4); background: rgba(255,165,0,0.05); }
+        .stat-card.warning-card.active { border-color: rgba(255,165,0,0.5); background: rgba(255,165,0,0.07); }
+        .stat-card.blue-card:hover { border-color: rgba(79,195,247,0.4); background: rgba(79,195,247,0.05); }
+        .stat-card.blue-card.active { border-color: rgba(79,195,247,0.5); background: rgba(79,195,247,0.07); }
+
+        .stat-number { font-size: 2.5rem; font-weight: 700; font-family: 'Share Tech Mono', monospace; }
+        .stat-card .stat-number { color: #00ff88; }
+        .danger-card .stat-number { color: #ff6b6b; }
+        .warning-card .stat-number { color: #ffa500; }
+        .blue-card .stat-number { color: #4fc3f7; }
+        .stat-label { color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 6px; letter-spacing: 1px; text-transform: uppercase; }
+        .stat-hint { color: rgba(0,255,136,0.4); font-size: 0.7rem; margin-top: 6px; font-family: 'Share Tech Mono', monospace; }
+        .danger-card .stat-hint { color: rgba(255,60,60,0.4); }
+        .warning-card .stat-hint { color: rgba(255,165,0,0.4); }
+        .blue-card .stat-hint { color: rgba(79,195,247,0.4); }
 
         .card {
             background: rgba(255,255,255,0.02);
             border: 1px solid rgba(0,255,136,0.1);
             border-radius: 12px;
             padding: 24px;
+            display: none;
         }
+        .card.visible { display: block; }
 
         .card-header {
             display: flex;
@@ -138,6 +147,8 @@
             color: #00ff88;
         }
 
+        .btn-group { display: flex; gap: 10px; }
+
         .refresh-btn {
             background: rgba(0,255,136,0.08);
             color: #00ff88;
@@ -151,11 +162,24 @@
             letter-spacing: 1px;
             transition: all 0.2s;
         }
-
         .refresh-btn:hover { background: rgba(0,255,136,0.15); }
 
-        table { width: 100%; border-collapse: collapse; }
+        .close-btn {
+            background: rgba(255,255,255,0.05);
+            color: #aaa;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 8px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        .close-btn:hover { background: rgba(255,255,255,0.08); }
 
+        table { width: 100%; border-collapse: collapse; }
         th {
             text-align: left;
             padding: 10px 14px;
@@ -166,49 +190,28 @@
             font-family: 'Share Tech Mono', monospace;
             border-bottom: 1px solid rgba(0,255,136,0.1);
         }
-
-        td {
-            padding: 14px;
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-            font-size: 0.9rem;
-            color: #ccc;
-        }
-
+        td { padding: 14px; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.9rem; color: #ccc; }
         tr:hover td { background: rgba(0,255,136,0.02); }
 
         .badge {
             padding: 5px 14px;
             border-radius: 20px;
             font-weight: 700;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             letter-spacing: 1px;
             font-family: 'Share Tech Mono', monospace;
         }
+        .badge.safe { background: rgba(0,255,136,0.1); color: #00ff88; border: 1px solid rgba(0,255,136,0.3); }
+        .badge.suspicious { background: rgba(255,60,60,0.1); color: #ff6b6b; border: 1px solid rgba(255,60,60,0.3); }
+        .badge.blocked { background: rgba(255,165,0,0.1); color: #ffa500; border: 1px solid rgba(255,165,0,0.3); }
 
-        .badge.safe {
-            background: rgba(0,255,136,0.1);
-            color: #00ff88;
-            border: 1px solid rgba(0,255,136,0.3);
-        }
-
-        .badge.suspicious {
-            background: rgba(255,60,60,0.1);
-            color: #ff6b6b;
-            border: 1px solid rgba(255,60,60,0.3);
-        }
-
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #444;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.85rem;
-        }
+        .loading { text-align: center; padding: 40px; color: #444; font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; }
+        .footer { text-align: center; padding: 20px; color: rgba(0,255,136,0.15); font-size: 0.72rem; letter-spacing: 2px; font-family: 'Share Tech Mono', monospace; position: relative; z-index: 1; }
     </style>
 </head>
 <body>
     <div class="navbar">
-        <div class="brand">🛡️ Cloud<span>Shield</span> AI</div>
+        <div class="brand">CloudShield <span>AI</span></div>
         <div class="nav-right">
             <div class="user-badge" id="userBadge">loading...</div>
             <button class="logout-btn" onclick="logout()">Logout</button>
@@ -217,51 +220,82 @@
 
     <div class="main">
         <div class="banner safe" id="statusBanner">
-            <div class="banner-icon" id="bannerIcon">✅</div>
+            <div class="banner-icon" id="bannerIcon">*</div>
             <div>
                 <div class="banner-title" id="bannerTitle">Loading Security Status...</div>
                 <div class="banner-subtitle" id="bannerSubtitle">Fetching latest login data...</div>
             </div>
         </div>
 
-        <div class="card">
+        <div class="stats">
+            <div class="stat-card" onclick="showHistory('all')" id="card-all">
+                <div class="stat-number" id="totalCount">0</div>
+                <div class="stat-label">Total Logins</div>
+                <div class="stat-hint">click to view</div>
+            </div>
+            <div class="stat-card blue-card" onclick="showHistory('iam')" id="card-iam">
+                <div class="stat-number" id="iamCount">0</div>
+                <div class="stat-label">IAM User Logins</div>
+                <div class="stat-hint">click to view</div>
+            </div>
+            <div class="stat-card warning-card" onclick="showHistory('root')" id="card-root">
+                <div class="stat-number" id="rootCount">0</div>
+                <div class="stat-label">Root Logins</div>
+                <div class="stat-hint">click to view</div>
+            </div>
+            <div class="stat-card danger-card" onclick="showHistory('suspicious')" id="card-suspicious">
+                <div class="stat-number" id="suspiciousCount">0</div>
+                <div class="stat-label">Suspicious Logins</div>
+                <div class="stat-hint">click to view</div>
+            </div>
+            <div class="stat-card danger-card" onclick="showHistory('blocked')" id="card-blocked">
+                <div class="stat-number" id="blockedCount">0</div>
+                <div class="stat-label">Blocked Users</div>
+                <div class="stat-hint">click to view</div>
+            </div>
+        </div>
+
+        <div class="card" id="historyCard">
             <div class="card-header">
-                <div class="card-title">Decision Log</div>
-                <button class="refresh-btn" onclick="loadLogs()">⟳ Refresh</button>
+                <div class="card-title" id="historyTitle">Login History</div>
+                <div class="btn-group">
+                    <button class="refresh-btn" onclick="loadLogs()">Refresh</button>
+                    <button class="close-btn" onclick="closeHistory()">Close</button>
+                </div>
             </div>
             <table>
                 <thead>
                     <tr>
                         <th>Timestamp</th>
                         <th>User</th>
-                        <th>Location (IP)</th>
+                        <th>Location / IP</th>
                         <th>Decision</th>
                         <th>AI Reason</th>
                     </tr>
                 </thead>
                 <tbody id="logsBody">
-                    <tr><td colspan="5" class="loading">⟳ Loading logs...</td></tr>
+                    <tr><td colspan="5" class="loading">Loading logs...</td></tr>
                 </tbody>
             </table>
         </div>
+
+        <div class="footer">POWERED BY AWS BEDROCK + CLOUDTRAIL + LAMBDA + DYNAMODB</div>
     </div>
 
     <script>
         const API_URL = 'https://vz3hnf6n5f.execute-api.us-east-1.amazonaws.com';
+        let allLogs = [];
+        let currentFilter = 'all';
 
-        // Auth check — if not logged in, redirect to login page
-        const token = localStorage.getItem('cloudshield_token');
-        const userEmail = localStorage.getItem('cloudshield_user');
+        const token     = sessionStorage.getItem('cloudshield_token');
+        const userEmail = sessionStorage.getItem('cloudshield_user');
 
-        if (!token) {
-            window.location.href = 'index.html';
-        }
-
-        document.getElementById('userBadge').textContent = userEmail || 'unknown';
+        if (!token) { window.location.href = 'index.html'; }
+        document.getElementById('userBadge').textContent = userEmail || 'admin';
 
         function logout() {
-            localStorage.removeItem('cloudshield_token');
-            localStorage.removeItem('cloudshield_user');
+            sessionStorage.removeItem('cloudshield_token');
+            sessionStorage.removeItem('cloudshield_user');
             window.location.href = 'index.html';
         }
 
@@ -281,11 +315,9 @@
             if (!aiVerdict) return 'No analysis available';
             const lines = aiVerdict.split('\n');
             for (const line of lines) {
-                if (line.toLowerCase().includes('reason:')) {
-                    return line.replace(/reason:/i, '').trim();
-                }
+                if (line.toLowerCase().includes('reason:')) return line.replace(/reason:/i, '').trim();
             }
-            return aiVerdict.substring(0, 120) + '...';
+            return aiVerdict.substring(0, 120);
         }
 
         function updateBanner(logs) {
@@ -294,64 +326,92 @@
             const title    = document.getElementById('bannerTitle');
             const subtitle = document.getElementById('bannerSubtitle');
 
-            if (!logs || logs.length === 0) {
-                title.textContent   = 'No Login Activity Yet';
+            if (!logs || !logs.length) {
+                title.textContent    = 'No Login Activity Yet';
                 subtitle.textContent = 'Login to your AWS account to generate logs.';
                 return;
             }
 
-            const latest = logs[0];
-            const isSuspicious = latest.decision === 'SUSPICIOUS';
-
-            if (isSuspicious) {
+            const hasSuspicious = logs.some(l => l.decision === 'SUSPICIOUS');
+            if (hasSuspicious) {
                 banner.className     = 'banner danger';
-                icon.textContent     = '⚠️';
+                icon.textContent     = '!';
                 title.textContent    = 'Warning: Suspicious Login Detected!';
-                subtitle.textContent = 'Instant Alert (SNS) Sent to Admin via Email.';
+                subtitle.textContent = 'Instant Alert sent via SNS Email.';
             } else {
                 banner.className     = 'banner safe';
-                icon.textContent     = '✅';
-                title.textContent    = 'System Secure — No Suspicious Activity';
+                icon.textContent     = '*';
+                title.textContent    = 'System Secure - No Suspicious Activity';
                 subtitle.textContent = 'Normal Activity Log Stored.';
             }
         }
 
+        function updateStats(logs) {
+            document.getElementById('totalCount').textContent      = logs.length;
+            document.getElementById('iamCount').textContent        = logs.filter(l => l.userType === 'IAMUser').length;
+            document.getElementById('rootCount').textContent       = logs.filter(l => l.user && l.user.includes('root')).length;
+            document.getElementById('suspiciousCount').textContent = logs.filter(l => l.decision === 'SUSPICIOUS').length;
+            document.getElementById('blockedCount').textContent    = logs.filter(l => l.userVerified === 'NO').length;
+        }
+
+        function showHistory(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.stat-card').forEach(c => c.classList.remove('active'));
+            const ac = document.getElementById('card-' + filter);
+            if (ac) ac.classList.add('active');
+            document.getElementById('historyCard').classList.add('visible');
+
+            let filtered = allLogs;
+            let title    = 'All Login History';
+
+            if (filter === 'iam')        { filtered = allLogs.filter(l => l.userType === 'IAMUser'); title = 'IAM User Login History'; }
+            else if (filter === 'root')  { filtered = allLogs.filter(l => l.user && l.user.includes('root')); title = 'Root Login History'; }
+            else if (filter === 'suspicious') { filtered = allLogs.filter(l => l.decision === 'SUSPICIOUS'); title = 'Suspicious Login History'; }
+            else if (filter === 'blocked')    { filtered = allLogs.filter(l => l.userVerified === 'NO'); title = 'Blocked Users History'; }
+
+            document.getElementById('historyTitle').textContent = title;
+            renderTable(filtered);
+        }
+
+        function closeHistory() {
+            document.getElementById('historyCard').classList.remove('visible');
+            document.querySelectorAll('.stat-card').forEach(c => c.classList.remove('active'));
+        }
+
+        function renderTable(logs) {
+            const tbody = document.getElementById('logsBody');
+            if (!logs || !logs.length) {
+                tbody.innerHTML = '<tr><td colspan="5" class="loading">No records found!</td></tr>';
+                return;
+            }
+            tbody.innerHTML = logs.map(log => {
+                const isSuspicious = log.decision === 'SUSPICIOUS';
+                const isBlocked    = log.userVerified === 'NO';
+                const badgeClass   = isBlocked ? 'blocked' : isSuspicious ? 'suspicious' : 'safe';
+                const badgeText    = isBlocked ? 'BLOCKED' : isSuspicious ? 'SUSPICIOUS' : 'SAFE';
+                return `<tr>
+                    <td style="font-family:'Share Tech Mono',monospace;font-size:0.8rem">${formatTime(log.timestamp)}</td>
+                    <td style="font-family:'Share Tech Mono',monospace;font-size:0.8rem">${formatUser(log.user)}</td>
+                    <td>${log.location || log.ip || 'Unknown'}</td>
+                    <td><span class="badge ${badgeClass}">${badgeText}</span></td>
+                    <td style="font-size:0.85rem;color:#aaa">${extractReason(log.aiVerdict)}</td>
+                </tr>`;
+            }).join('');
+        }
+
         async function loadLogs() {
             const tbody = document.getElementById('logsBody');
-            tbody.innerHTML = '<tr><td colspan="5" class="loading">⟳ Loading logs...</td></tr>';
-
+            tbody.innerHTML = '<tr><td colspan="5" class="loading">Loading logs...</td></tr>';
             try {
-                const response = await fetch(`${API_URL}/logs`, {
-                    headers: { 'Authorization': token }
-                });
-                const logs = await response.json();
-
-                updateBanner(logs);
-
-                if (!logs || logs.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="5" class="loading">No logs yet. Login to AWS to generate logs!</td></tr>';
-                    return;
+                const response = await fetch(`${API_URL}/logs`);
+                allLogs        = await response.json();
+                updateBanner(allLogs);
+                updateStats(allLogs);
+                if (document.getElementById('historyCard').classList.contains('visible')) {
+                    showHistory(currentFilter);
                 }
-
-                tbody.innerHTML = logs.map(log => {
-                    const isSuspicious = log.decision === 'SUSPICIOUS';
-                    const badgeClass   = isSuspicious ? 'suspicious' : 'safe';
-                    const badgeText    = isSuspicious ? '🚨 SUSPICIOUS' : '✅ SAFE';
-                    const reason       = extractReason(log.aiVerdict);
-
-                    return `
-                        <tr>
-                            <td style="font-family:'Share Tech Mono',monospace;font-size:0.8rem">${formatTime(log.timestamp)}</td>
-                            <td style="font-family:'Share Tech Mono',monospace;font-size:0.8rem">${formatUser(log.user)}</td>
-                            <td>${log.location || log.ip || 'Unknown'}</td>
-                            <td><span class="badge ${badgeClass}">${badgeText}</span></td>
-                            <td style="font-size:0.85rem;color:#aaa">${reason}</td>
-                        </tr>
-                    `;
-                }).join('');
-
             } catch (error) {
-                tbody.innerHTML = `<tr><td colspan="5" class="loading">❌ Error: ${error.message}</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="loading">Error: ${error.message}</td></tr>`;
             }
         }
 
